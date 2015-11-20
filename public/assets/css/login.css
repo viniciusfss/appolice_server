@@ -1,0 +1,12 @@
+.page-login:before {
+  background-image: url("../../img/bg.jpg");
+}
+.page-login form {
+  width: 340px;
+  margin: 30px auto;
+}
+@media (max-width: 767px) {
+  .page-login form {
+    width: auto;
+  }
+}

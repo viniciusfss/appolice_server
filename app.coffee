@@ -4,6 +4,7 @@ favicon = require 'serve-favicon'
 logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
+csrf = require 'csurf'
 
 app = express()
 
@@ -24,6 +25,10 @@ app.use express.static path.join __dirname, 'public'
 website = require './apps/website/website'
 dashboard = require './apps/dashboard/dashboard'
 
+# We need to disable CSRF for APIs
+# app.use '/api', api
+
+app.use csrf {cookie: true}
 app.use '/', website
 app.use '/dashboard', dashboard
 

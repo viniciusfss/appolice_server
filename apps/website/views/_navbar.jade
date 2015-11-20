@@ -1,0 +1,48 @@
+nav
+  ul(class='unlogged-nav')
+    li 
+      a(href='#seguros') Seguros
+    li 
+      a(href='#vantagens') Vantagens
+    li 
+      a(href='#sobre') Quem somos
+    li 
+      a(href='#corretores') Corretores
+    li 
+      a(href='#contato') Contato
+    li 
+      a(href='/dashboard', class='login-button') 
+        span Login
+
+    //- <li>
+    //-     <a href="{% url 'account_login' %}" class="login-button">
+    //-         <span>Login</span>
+    //-     </a>
+    //- </li>
+    //- {% if user.is_authenticated %}
+    //- <li>
+    //-     <ul class="logged-nav broker-nav">
+    //-         <li>
+    //-             <a class="username-menu" href="#">{{ user.email }}</a>
+    //-         </li>
+    //-         <li>
+    //-             <a class="useredit-menu" href="{% url 'core:dashboard' %}">Editar perfil</a>
+    //-         </li>
+    //- 
+    //-         <li>
+    //-             <a class="dashboardbroker-menu" href="{% url 'core:dashboard' %}">Área do corretor</a>
+    //-         </li>
+    //-         {% comment %}
+    //-         <li>
+    //-             <a class="userpolicies-menu" href="{% url 'core:dashboard' %}">Minhas apólices</a>
+    //-         </li>
+    //-         {% endcomment %}
+    //-         <li>
+    //-             <a class="userexit-menu" href="{% url 'account_logout' %}">Sair</a>
+    //-         </li>
+    //-     </ul>
+    //- </li>
+//-     {% else %}
+//-     
+//-     {% endif %}
+//- </ul>

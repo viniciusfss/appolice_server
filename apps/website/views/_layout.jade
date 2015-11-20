@@ -1,0 +1,48 @@
+doctype html
+html(lang='pt_BR')
+  head
+    title iBroker
+    meta(charset='utf-8', http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='description' content='Seguros online. Atendimento pessoal.')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='css/global.css')
+    block head_extra
+    
+  body(class='home-page')
+    header
+      .wrapper
+        a(href='/')
+          h1 iBroker
+          
+        include _navbar.jade
+        
+    block content_outer
+    
+    main
+      block content
+    
+    block footer
+    
+    footer
+      .wrapper
+        h3 
+          a(href='/')
+            img(src='img/logo-min.png', alt='', width='50%')
+        
+        p &copy; i/Broker 2015
+        
+        ul
+          li
+            a(href='')
+              img(src='img/facebook-icon.png', alt='', height='20', width='20')
+          li
+            a(href='')
+              img(src='img/twitter-icon.png', alt='', height='20', width='20')
+          li
+            a(href='')
+              img(src='img/plus-icon.png', alt='', height='20', width='20')
+              
+    block body_extra
+    script(src='js/jquery.min.js')
+    script(src='js/main.min.js')
+    block scripts_extra
