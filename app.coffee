@@ -20,6 +20,10 @@ app.use bodyParser.urlencoded
 app.use cookieParser()
 app.use express.static path.join __dirname, 'public'
 
+# Configure there the PATH to the database
+
+
+
 # Include here the apps you want available
 
 website = require './apps/website/website'
