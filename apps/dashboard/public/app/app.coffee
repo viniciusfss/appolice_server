@@ -12,5 +12,11 @@ $(document).ready ->
   riot.route '/login/forgot', () ->
     RiotControl.trigger 'router_go_forgotpass'
 
+  riot.route '/register', () ->
+    RiotControl.trigger 'router_go_register'
+
+  riot.route '/register/policy', () ->
+    RiotControl.trigger 'router_go_policy'
+
 
   riot.mount 'my-app', {pageToDisplay: 'loginPage'}

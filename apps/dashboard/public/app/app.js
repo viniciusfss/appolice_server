@@ -12,6 +12,12 @@ $(document).ready(function() {
   riot.route('/login/forgot', function() {
     return RiotControl.trigger('router_go_forgotpass');
   });
+  riot.route('/register', function() {
+    return RiotControl.trigger('router_go_register');
+  });
+  riot.route('/register/policy', function() {
+    return RiotControl.trigger('router_go_policy');
+  });
   return riot.mount('my-app', {
     pageToDisplay: 'loginPage'
   });

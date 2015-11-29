@@ -14,3 +14,11 @@ routerStore.on 'router_go_login', (disabled) ->
 routerStore.on 'router_go_forgotpass', () ->
   console.log 'router_go_forgotpass'
   riot.route '//login/forgot'
+
+routerStore.on 'router_go_register', () ->
+  console.log 'router_go_register'
+  riot.route '//register'
+
+routerStore.on 'router_go_policy', () ->
+  console.log 'router_go_policy'
+  riot.route '//register/policy'

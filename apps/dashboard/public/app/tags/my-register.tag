@@ -1,5 +1,5 @@
-<my-login class="page-login layout-full page-dark site-menubar-fold">
-  <div class="page vertical-align text-center" data-animation-in="fade-in"
+<my-register class="page-login layout-full page-dark site-menubar-fold">
+  <div class="page vertical-align text-center" data-animsition-in="fade-in"
   data-animsition-out="fade-out">>
     <div class="page-content vertical-align-middle">
       <div class="brand">
@@ -8,27 +8,34 @@
       </div>
       <p>Acesse o painel administrativo</p>
 
-      <form onsubmit="{doLogin}" method="post">
+      <form action="" method="POST">
         <div class="form-group">
           <input type="numbers" class="form-control" placeholder="CPF/CNPJ (Apenas Números)" name="login" required>
+        </div>
+
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email" name="login" required>
         </div>
 
         <div class="form-group">
           <input type="password" class="form-control" placeholder="Senha" name="password" required>
         </div>
 
-        <div class="form-group clearfix">
-          <div class="checkbox-custom checkbox-inline checkbox-primary pull-left">
-            <input type="checkbox" id="id_remember" name="remember">
-            <label for="inputCheckbox">Lembrar-me</label>
-          </div>
-          <a href='#' class="pull-right" onclick="{goToForgotPass}">Esqueceu a senha?</a>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Confirmação de Senha" name="password2" required>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+        <div class="form-group clearfix">
+          <div class="checkbox-custom checkbox-inline checkbox-primary pull-left">
+            <input type="checkbox" id="id_accept" name="accept">
+            <label for="inputCheckbox">Aceito o Contrato para Corretores e a Política de Privacidade para fazer uso do sistema.</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
       </form>
 
-      <p>Não tem uma conta? <a href="#" onclick="{goToRegister}">Registre-se</a>
+      <p>Já tem uma conta? Acesse o painel fazendo o <a href="#/" onclick="{goToLogin}">Login</a></p>
 
       <footer class="page-copyright page-copyright-inverse">
         <p>Desenvolvido por <a href="http://criar.me">criar.me</a></p>
@@ -38,17 +45,9 @@
   </div>
 
   <script>
-    this.on('mount', function() {
-    });
-
-    goToForgotPass(e) {
-      console.log("IM HERE!");
-      RiotControl.trigger('router_go_forgotpass');
-    }
-
-    goToRegister(e) {
-      console.log("Register!");
-      RiotControl.trigger('router_go_register');
+    goToLogin(e) {
+      console.log('YOLOLO!');
+      RiotControl.trigger('router_go_login');
     }
   </script>
-</my-login>
+</my-register>

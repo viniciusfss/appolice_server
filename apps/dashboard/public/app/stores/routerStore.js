@@ -23,3 +23,13 @@ routerStore.on('router_go_forgotpass', function() {
   console.log('router_go_forgotpass');
   return riot.route('//login/forgot');
 });
+
+routerStore.on('router_go_register', function() {
+  console.log('router_go_register');
+  return riot.route('//register');
+});
+
+routerStore.on('router_go_policy', function() {
+  console.log('router_go_policy');
+  return riot.route('//register/policy');
+});
