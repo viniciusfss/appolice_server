@@ -8,7 +8,7 @@ html(lang='pt-BR')
     
     
     link(rel='apple-touch-icon', href='assets/images/apple-touch-icon.png')
-    link(rel='shortcut icon', href='assets/images/favicon.ico')
+    //- link(rel='shortcut icon', href='assets/images/favicon.ico')
     link(rel='stylesheet', href='assets/css/bootstrap.min.css')
     link(rel='stylesheet', href='assets/css/bootstrap-extend.min.css')
     link(rel='stylesheet', href='assets/css/site.min.css')
@@ -38,12 +38,17 @@ html(lang='pt-BR')
     block body_extra
 
     script(src='js/jquery.min.js')
-    script(src='js/riot+compiler.min.js')
+    script(src='js/riot+compiler.js')
+    script(src='js/riotcontrol.js')
+    script(src='app/stores/userStore.js')
+    script(src='app/stores/routerStore.js')
     script(src='app/app.js')
 
-    script(src='app/tags/auth.tag', type='riot/tag')
+    script(src='app/tags/my-app.tag', type='riot/tag')
+    script(src='app/tags/my-login.tag', type='riot/tag')
+    script(src='app/tags/my-forgot-pass.tag', type='riot/tag')
 
-    script riot.mount('*') // This should be the last entry.
+    //- script riot.mount('my-app') // This should be the last entry.
     script(src='assets/vendor/bootstrap/bootstrap.js')
     script(src='assets/vendor/animsition/jquery.animsition.js')
     script(src='assets/vendor/asscroll/jquery-asScroll.js')
