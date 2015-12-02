@@ -7,18 +7,23 @@ class RouterStore
 
 routerStore = new RouterStore()
 
-routerStore.on 'router_go_login', (disabled) ->
+routerStore.on 'router_go_login', (action) ->
   console.log 'router_go_login'
-  riot.route '//login'
+  if action isnt 'no_redirect'
+    riot.route '//login'
 
-routerStore.on 'router_go_forgotpass', () ->
+routerStore.on 'router_go_forgotpass', (action) ->
   console.log 'router_go_forgotpass'
-  riot.route '//login/forgot'
+  if action isnt 'no_redirect'
+    riot.route '//login/forgot'
 
-routerStore.on 'router_go_register', () ->
+routerStore.on 'router_go_register', (action) ->
+  if action isnt 'no_redirect'
+    console.log 'router_go_register no_redirect'
+    riot.route '//register'
   console.log 'router_go_register'
-  riot.route '//register'
 
-routerStore.on 'router_go_policy', () ->
+routerStore.on 'router_go_policy', (action) ->
   console.log 'router_go_policy'
-  riot.route '//register/policy'
+  if action isnt 'no_redirect'
+    riot.route '//register/policy'

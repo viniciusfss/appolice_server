@@ -1,45 +1,29 @@
 <my-app>
-  <my-login if={loginPage}/>
-  <my-forgot-pass if={forgotPassPage}/>
-  <my-register if={registerPage} />
+  <my-login if={page == 'loginPage'}></my-login>
+  <my-forgot-pass if={page == 'forgotPassPage'}></my-forgot-pass>
+  <my-register if={page == 'registerPage'}></my-register>
   <script>
-    self = this;
-    function resetAll(myTag) {
-      myTag.loginPage = false;
-      myTag.forgotPassPage = false;
-      myTag.registerPage = false;
-    }
+    var self = this;
 
     this.on('mount', function() {
-      switch (opts.pageToDisplay) {
-        case 'loginPage':
-          RiotControl.trigger('router_go_login');
-          break;
-        case 'forgotPassPage':
-          RiotControl.trigger('router_go_forgotpass');
-          break;
-        case 'registerPage':
-          RiotControl.trigger('router_go_register');
-          break;
-        default:
-      }
-    })
+      RiotControl.trigger('router_go_login');
+    });
+
+    this.on('update', function() {
+      console.log(this.page);
+    });
 
     RiotControl.on('router_go_login', function() {
-      resetAll(self);
-      self.update({loginPage: true});
-    })
+      self.update({page: 'loginPage'});
+    });
 
     RiotControl.on('router_go_forgotpass', function() {
-      console.log('router_go_forgotpass');
-      resetAll(self);
-      self.update({forgotPassPage: true});
-    })
+      self.update({page: 'forgotPassPage'});
+    });
 
     RiotControl.on('router_go_register', function() {
-      console.log('router_go_register');
-      resetAll(self);
-      self.update({registerPage:true});
-    })
+      self.update({page: 'registerPage'});
+    });
+
   </script>
 </my-app>

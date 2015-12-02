@@ -25,3 +25,18 @@ userStore.on('userStore_check_token', function() {
 userStore.on('userStore_do_login', function() {
   return console.log('userStore_do_login');
 });
+
+userStore.on('userStore_do_register', function(data) {
+  console.log('userStore_do_register');
+  return $.ajax({
+    url: ajaxAPIURL + 'account/create',
+    method: 'put',
+    data: data
+  }).done(function(data, status) {
+    console.log('AJAX method successful!');
+    return RiotControl.trigger('router_go_login', 'just_created_account');
+  }).fail(function(req, error) {
+    console.log('AJAX method failed!');
+    return console.log(req);
+  });
+});

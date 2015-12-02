@@ -8,7 +8,11 @@
       </div>
       <p>Acesse o painel administrativo</p>
 
-      <form onsubmit="{doLogin}" method="post">
+      <p if={justCreatedAccount} class="well well-sm well-success" role="alert">
+        <strong>Sucesso!</strong> Conta criada. Por favor, faça o login.
+      </p>
+
+      <form onsubmit={doLogin} method="post">
         <div class="form-group">
           <input type="numbers" class="form-control" placeholder="CPF/CNPJ (Apenas Números)" name="login" required>
         </div>
@@ -22,13 +26,13 @@
             <input type="checkbox" id="id_remember" name="remember">
             <label for="inputCheckbox">Lembrar-me</label>
           </div>
-          <a href='#' class="pull-right" onclick="{goToForgotPass}">Esqueceu a senha?</a>
+          <a href='#' class="pull-right" onclick={goToForgotPass}>Esqueceu a senha?</a>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block">Entrar</button>
       </form>
 
-      <p>Não tem uma conta? <a href="#" onclick="{goToRegister}">Registre-se</a>
+      <p>Não tem uma conta? <a href="#" onclick={goToRegister}>Registre-se</a>
 
       <footer class="page-copyright page-copyright-inverse">
         <p>Desenvolvido por <a href="http://criar.me">criar.me</a></p>
@@ -38,16 +42,22 @@
   </div>
 
   <script>
+    var self = this;
+    this.justCreatedAccount = false;
     this.on('mount', function() {
     });
 
+    RiotControl.on('router_go_login', function(action) {
+      if (action === 'just_created_account') {
+        self.justCreatedAccount = true;
+      }
+    });
+
     goToForgotPass(e) {
-      console.log("IM HERE!");
       RiotControl.trigger('router_go_forgotpass');
     }
 
     goToRegister(e) {
-      console.log("Register!");
       RiotControl.trigger('router_go_register');
     }
   </script>

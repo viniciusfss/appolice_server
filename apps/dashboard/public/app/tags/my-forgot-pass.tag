@@ -8,9 +8,9 @@
       <p>Esqueceu a sua senha? Insira o seu endereço de e-mail abaixo, e lhe enviaremos um e-mail permitindo que a redefina.</p>
       <p>Por favor, contacte-nos se tiver qualquer problema para redefinir a sua senha.</p>
       <footer class="page-copyright page-copyright-inverse">
-          <p>Desenvolvido por <a href="http://criar.me">criar.me</a></p>
-          <p>© 2015. Todos os direitos reservados.</p>
-        </footer>
+        <p>Desenvolvido por <a href="http://criar.me">criar.me</a></p>
+        <p>© 2015. Todos os direitos reservados.</p>
+      </footer>
     </div>
   </div>
   <style type="text/css">

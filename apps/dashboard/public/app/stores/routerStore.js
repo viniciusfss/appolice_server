@@ -14,22 +14,31 @@ RouterStore = (function() {
 
 routerStore = new RouterStore();
 
-routerStore.on('router_go_login', function(disabled) {
+routerStore.on('router_go_login', function(action) {
   console.log('router_go_login');
-  return riot.route('//login');
+  if (action !== 'no_redirect') {
+    return riot.route('//login');
+  }
 });
 
-routerStore.on('router_go_forgotpass', function() {
+routerStore.on('router_go_forgotpass', function(action) {
   console.log('router_go_forgotpass');
-  return riot.route('//login/forgot');
+  if (action !== 'no_redirect') {
+    return riot.route('//login/forgot');
+  }
 });
 
-routerStore.on('router_go_register', function() {
-  console.log('router_go_register');
-  return riot.route('//register');
+routerStore.on('router_go_register', function(action) {
+  if (action !== 'no_redirect') {
+    console.log('router_go_register no_redirect');
+    riot.route('//register');
+  }
+  return console.log('router_go_register');
 });
 
-routerStore.on('router_go_policy', function() {
+routerStore.on('router_go_policy', function(action) {
   console.log('router_go_policy');
-  return riot.route('//register/policy');
+  if (action !== 'no_redirect') {
+    return riot.route('//register/policy');
+  }
 });

@@ -8,31 +8,31 @@
       </div>
       <p>Acesse o painel administrativo</p>
 
-      <form action="" method="POST">
+      <form onsubmit={doRegister}>
         <div class="form-group">
           <input type="numbers" class="form-control" placeholder="CPF/CNPJ (Apenas Números)" name="login" required>
         </div>
 
         <div class="form-group">
-          <input type="email" class="form-control" placeholder="Email" name="login" required>
+          <input type="email" class="form-control" placeholder="Email" name="email" required>
         </div>
 
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Senha" name="password" required>
+          <input type="password" class="form-control" placeholder="Senha" name="password" onkeyup={validateForm} required>
         </div>
 
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Confirmação de Senha" name="password2" required>
+          <input type="password" class="form-control" placeholder="Confirmação de Senha" name="password2" onkeyup={validateForm} required>
         </div>
 
         <div class="form-group clearfix">
           <div class="checkbox-custom checkbox-inline checkbox-primary pull-left">
-            <input type="checkbox" id="id_accept" name="accept">
+            <input type="checkbox" name="checkme" onchange={validateForm}>
             <label for="inputCheckbox">Aceito o Contrato para Corretores e a Política de Privacidade para fazer uso do sistema.</label>
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+        <button disabled={disableBtn} type="submit" class="btn btn-primary btn-block">Cadastrar</button>
       </form>
 
       <p>Já tem uma conta? Acesse o painel fazendo o <a href="#/" onclick="{goToLogin}">Login</a></p>
@@ -45,9 +45,37 @@
   </div>
 
   <script>
+    this.disableBtn = true;
+    
+    this.on('mount', function() {
+        console.log('AODFUYISODUFYISUDYF');
+    })
+
     goToLogin(e) {
-      console.log('YOLOLO!');
       RiotControl.trigger('router_go_login');
+    }
+
+    validateForm(e) {
+      if((this.password.value == this.password2.value)
+          && (this.login.value != '')
+          && (this.email.value != '')
+          && (this.password.value != '')
+          && (this.password2.value != '')
+          && (this.checkme.checked)) {
+        this.disableBtn = false;
+      } else {
+        this.disableBtn = true;
+      }
+    }
+
+    doRegister(e) {
+      vals = {
+        _id: this.login.value,
+        email: this.email.value,
+        password: this.password.value
+      }
+
+      RiotControl.trigger('userStore_do_register', vals);
     }
   </script>
 </my-register>

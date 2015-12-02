@@ -1,11 +1,11 @@
 express = require 'express'
-routes = require './routes'
+accounts = require './controllers/accounts'
 
 path = require 'path'
 
 api = express()
 api.set 'views', path.join __dirname, 'views'
 
-api.use '/', routes
+api.use '/account', accounts
 
 module.exports = api
