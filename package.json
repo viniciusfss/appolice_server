@@ -18,6 +18,7 @@
     "nodemon": "^1.8.1",
     "passport-accesstoken": "^0.1.0",
     "pouchdb": "^5.1.0",
+    "rand-token": "^0.2.1",
     "serve-favicon": "~2.2.0"
   }
 }
