@@ -10,7 +10,7 @@
 
       <form onsubmit={doRegister}>
         <div class="form-group">
-          <input type="numbers" class="form-control" placeholder="CPF/CNPJ (Apenas Números)" name="login" required>
+          <input type="numbers" class="form-control" placeholder="CPF/CNPJ (Apenas Números)" onkeyup={removeNonNumbers} name="login" required>
         </div>
 
         <div class="form-group">
@@ -46,10 +46,14 @@
 
   <script>
     this.disableBtn = true;
-    
+
     this.on('mount', function() {
         console.log('AODFUYISODUFYISUDYF');
     })
+
+    removeNonNumbers(e) {
+      this.login.value = this.login.value.replace(/\D+/g, '');
+    }
 
     goToLogin(e) {
       RiotControl.trigger('router_go_login');

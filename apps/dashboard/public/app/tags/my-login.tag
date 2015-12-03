@@ -14,7 +14,7 @@
 
       <form onsubmit={doLogin} method="post">
         <div class="form-group">
-          <input type="numbers" class="form-control" placeholder="CPF/CNPJ (Apenas Números)" name="login" required>
+          <input type="numbers" class="form-control" placeholder="CPF/CNPJ (Apenas Números)" onkeyup={removeNonNumbers} name="login" required>
         </div>
 
         <div class="form-group">
@@ -52,6 +52,10 @@
         self.justCreatedAccount = true;
       }
     });
+
+    removeNonNumbers(e) {
+      this.login.value = this.login.value.replace(/\D+/g, '');
+    }
 
     goToForgotPass(e) {
       RiotControl.trigger('router_go_forgotpass');

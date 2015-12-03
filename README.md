@@ -4,7 +4,7 @@ This is the server application to appolice server. It holds the admin area,
 the website and the RESTAPIs for the application.
 
 The stack we are using are:
-  - IcedCoffeeScript (CoffeeScript with Async steroids).
+  - CoffeeScript.
   - Express as the backend.
   - CouchDB as our database with nano.
   - RiotJS as the front-end.
@@ -12,7 +12,7 @@ The stack we are using are:
 
 Installation
   1. CouchDB server: `sudo apt-get install couchdb`
-  2. Appolice libraries: `sudo apt-get install libkrb5-dev`
+  2. Appolice libraries: `sudo apt-get install build-essential`
 
 It is possible that some more requirements are missing. So install
 until everything is properly running.
