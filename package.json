@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon -x coffee ./bin/www",
-    "startdev": "forever start -c nodemon -x coffee --exitcrash ./bin/www"
+    "startdev": "coffee ./bin/www"
   },
   "dependencies": {
     "bcryptjs": "^2.3.0",

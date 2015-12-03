@@ -19,4 +19,4 @@ until everything is properly running.
 
 ## Running on dev
   1. do: `npm install`
-  2. then run `npm run-script startdev`
+  2. then run `forever start -c "npm run-script startdev" .`

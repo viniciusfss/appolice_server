@@ -40,7 +40,7 @@ onListening = ->
 
 
 # Get port from environment and store in Express.
-port = process.env.NODEPORT or '3000'
+port = '3000'
 app.set 'port', port
 
 console.log 'Server running on http://localhost:' + port
