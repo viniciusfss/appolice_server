@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon -x iced ./bin/www.iced"
+    "start": "nodemon -x coffee ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.10.2",
@@ -12,7 +12,6 @@
     "csurf": "^1.8.3",
     "debug": "~2.1.1",
     "express": "~4.11.1",
-    "iced-coffee-script": "^108.0.9",
     "jade": "~1.9.1",
     "morgan": "~1.5.1",
     "nodemon": "^1.8.1",
