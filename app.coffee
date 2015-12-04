@@ -36,11 +36,11 @@ dashboard = require './apps/dashboard/dashboard'
 api = require './apps/api/api'
 
 # We need to disable CSRF for APIs
-app.use '/api', api
 
+app.use '/api', api
+app.use '/dashboard', dashboard
 app.use csrf {cookie: true}
 app.use '/', website
-app.use '/dashboard', dashboard
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->

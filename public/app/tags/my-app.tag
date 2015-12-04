@@ -2,11 +2,13 @@
   <my-login if={page == 'loginPage'}></my-login>
   <my-forgot-pass if={page == 'forgotPassPage'}></my-forgot-pass>
   <my-register if={page == 'registerPage'}></my-register>
+  <my-dashboard></my-dashboard>
+  <!-- <my-dashboard if={page == 'dashboard'}></my-dashboard> -->
   <script>
     var self = this;
 
     this.on('mount', function() {
-      RiotControl.trigger('router_go_login');
+      // RiotControl.trigger('router_go_login');
     });
 
     this.on('update', function() {

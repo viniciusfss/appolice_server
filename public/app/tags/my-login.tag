@@ -12,7 +12,7 @@
         <strong>Sucesso!</strong> Conta criada. Por favor, faça o login.
       </p>
 
-      <form onsubmit={doLogin} method="post">
+      <form onsubmit={doLogin}>
         <div class="form-group">
           <input type="numbers" class="form-control" placeholder="CPF/CNPJ (Apenas Números)" onkeyup={removeNonNumbers} name="login" required>
         </div>
