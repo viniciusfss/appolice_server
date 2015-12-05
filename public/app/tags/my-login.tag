@@ -57,6 +57,14 @@
       this.login.value = this.login.value.replace(/\D+/g, '');
     }
 
+    doLogin(e) {
+      vals = {
+        _id: this.login.value,
+        password: this.password.value
+      }
+      RiotControl.trigger('userStore_do_login', vals);
+    }
+
     goToForgotPass(e) {
       RiotControl.trigger('router_go_forgotpass');
     }

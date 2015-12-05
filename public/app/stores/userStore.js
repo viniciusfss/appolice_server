@@ -22,8 +22,20 @@ userStore.on('userStore_check_token', function() {
   }
 });
 
-userStore.on('userStore_do_login', function() {
-  return console.log('userStore_do_login');
+userStore.on('userStore_do_login', function(data) {
+  console.log('userStore_do_login');
+  return $.ajax({
+    url: ajaxAPIURL + 'account/token',
+    method: 'put',
+    data: data
+  }).done(function(data, status) {
+    console.log('AJAX method successful!');
+    localStorage.token = data.token;
+    return RiotControl.trigger('router_go_dashboard');
+  }).fail(function(req, error) {
+    console.log('AJAX method failed!');
+    return console.log(req);
+  });
 });
 
 userStore.on('userStore_do_register', function(data) {

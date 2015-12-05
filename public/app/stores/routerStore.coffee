@@ -27,3 +27,8 @@ routerStore.on 'router_go_policy', (action) ->
   console.log 'router_go_policy'
   if action isnt 'no_redirect'
     riot.route '//register/policy'
+
+routerStore.on 'router_go_dashboard', (action) ->
+  console.log 'router_go_dashboard'
+  if action isnt 'no_redirect'
+    riot.route '//home'

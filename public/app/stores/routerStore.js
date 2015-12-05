@@ -42,3 +42,10 @@ routerStore.on('router_go_policy', function(action) {
     return riot.route('//register/policy');
   }
 });
+
+routerStore.on('router_go_dashboard', function(action) {
+  console.log('router_go_dashboard');
+  if (action !== 'no_redirect') {
+    return riot.route('//home');
+  }
+});

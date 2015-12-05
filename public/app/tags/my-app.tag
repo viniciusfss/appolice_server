@@ -2,17 +2,24 @@
   <my-login if={page == 'loginPage'}></my-login>
   <my-forgot-pass if={page == 'forgotPassPage'}></my-forgot-pass>
   <my-register if={page == 'registerPage'}></my-register>
-  <my-dashboard></my-dashboard>
-  <!-- <my-dashboard if={page == 'dashboard'}></my-dashboard> -->
+  <my-dashboard if={page == 'dashboardPage'}></my-dashboard>
   <script>
     var self = this;
 
     this.on('mount', function() {
-      // RiotControl.trigger('router_go_login');
+      if (localStorage.token === '' || localStorage.token === undefined) {
+        RiotControl.trigger('router_go_login');
+      } else {
+        RiotControl.trigger('router_go_dashboard');
+      }
     });
 
     this.on('update', function() {
       console.log(this.page);
+    });
+
+    RiotControl.on('router_go_dashboard', function() {
+      self.update({page: 'dashboardPage'});
     });
 
     RiotControl.on('router_go_login', function() {
