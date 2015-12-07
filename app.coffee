@@ -6,14 +6,11 @@ cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
 csrf = require 'csurf'
 
+##### CONFIGURATION #####
 # Configure there the PATH to the database
-dbPath = 'http://localhost:5984/'
-PouchDB = require 'pouchdb'
+process.env.COUCHDBPATH = 'http://localhost:5984/'
 
 app = express()
-# database setup
-app.locals.db = (dbName) ->
-  new PouchDB(dbPath + dbName)
 
 # view engine setup
 app.set 'view engine', 'jade'
@@ -26,7 +23,6 @@ app.use bodyParser.urlencoded
   extended: true
 app.use cookieParser()
 app.use express.static path.join __dirname, 'public'
-
 
 
 # Include here the apps you want available

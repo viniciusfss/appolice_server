@@ -38,7 +38,6 @@ userStore.on 'userStore_do_register', (data) ->
   .done((data, status) ->
     console.log 'AJAX method successful!'
     RiotControl.trigger 'router_go_login', 'just_created_account')
-    # Here should trigger a redirect to the login page.
   .fail((req, error) ->
     console.log 'AJAX method failed!'
     console.log req)
