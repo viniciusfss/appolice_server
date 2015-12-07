@@ -24,6 +24,12 @@ router.put '/create', (req, res, next) ->
 
 # router.get '/get/:id', (req, res, next) ->
 
+router.put '/exists', (req, res, next) ->
+  user = new User
+  user.exists req.body.token, (error, success) ->
+    return res.status(404).jsonp 'error': error if error
+    return res.jsonp 'ok': success
+
 router.put '/token', (req, res, next) ->
   unless req.body._id? and req.body.password?
     console.log 'PUT request on: /account/token FAILED'
@@ -32,7 +38,7 @@ router.put '/token', (req, res, next) ->
 #   else
   console.log 'PUT request on: /account/token'
   user = new User
-  user.getToken(
+  return user.getToken(
     req.body._id,
     req.body.password,
     req.body.client, (error, token) ->

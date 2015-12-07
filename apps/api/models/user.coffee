@@ -3,24 +3,78 @@ bcrypt = require 'bcryptjs'
 uid = require('rand-token').uid
 db = new PouchDB process.env.COUCHDBPATH + 'account'
 
+couchviews = {
+  _id: '_design/account'
+  views: {
+    userByToken: {
+      map: ((doc) ->
+        for token in doc.tokens
+          emit(token.id, token.client)).toString()
+    }
+  }
+}
+
+db.get couchviews._id, (error, result) ->
+  if error
+    if error.status is 404
+      console.log 'Not found!'
+      db.put couchviews, (error, result) ->
+        if error
+          if error.status is 409
+            console.log 'Conflict? o.o'
+          else
+            console.log '1. Dunno error: ' + error
+
+        console.log 'Putting new design view!'
+    else
+      console.log '2. Dunno error: ' + error.status
+  else
+    if result.views is couchviews.views
+      console.log 'Okay, nothing to be done!'
+    else
+      result.views = couchviews.views
+      console.log 'Updating design views!'
+      db.put result, (error, result) ->
+        console.log error if error
+        console.log result
+
+# Schema is not fixed!
 class User
-  # This schema is not fixed
   constructor: () ->
 
-  getToken: (id, pass, client, cb) ->
-    # Retuns a token. If no token is found, we generate one, with client as ID.
+  exists: (token, cb) ->
+    # Returns true or false depending on Token existence
     return undefined unless typeof cb is 'function'
-    self = @
+    return cb 'No token given' unless token
+    db.query 'account/userByToken', {key: token}, (error, value) ->
+      return cb error if error
+      for e in value.rows
+        return cb undefined, true
+      return cb undefined, false
+
+  getToken: (id, pass, client, cb) ->
+    # Retuns a token. If no token is found, generates one.
+    return undefined unless typeof cb is 'function'
+    client = 'web' unless client
     @byID id, (error, user) ->
       return cb error if error
-      self.comparePassword pass, (error, result) ->
+      user.comparePassword pass, (error, result) ->
+        console.log 'Comparing passwords'
         return cb error if error
         if result is true
-          unless user.tokens
-            return self.setToken client, (error, result) ->
-              return cb error if error
-              return cb undefined, result
-          return cb undefined, user.tokens[(client or 'web')]
+          user.tokens = [] unless user.tokens
+          for token in user.tokens
+            if token.client is client
+              return cb undefined, token.id
+          # We couldn't find a token.client that matches the client.
+          # So we'll generate a new token.
+          tk =
+            id: uid 80
+            client: client
+          user.tokens.push tk
+          user.save (error, upUser) ->
+            return cb error if error
+            return cb undefined, upUser
         else
           console.log 'Result is False'
           return cb 'Passwords does not match'
@@ -80,10 +134,13 @@ class User
     # Sets a token with client and returns it
     return undefined unless typeof cb is 'function'
 
-    @tokens = {} unless @tokens
-    @tokens.android = uid 40 if client is 'android' and not @tokens.android
-    @tokens.ios = uid 40 if client is 'ios' and not @tokens.ios
-    @tokens.web = uid 40 if not client? and not @tokens.web
+    @tokens = [] unless @tokens
+    for token in tokens
+      console.log token
+      if token.client is client
+        return cb undefined, token._id
+
+    console.log 'YO!'
     @save (error, user) ->
       return cb error if error
       return cb undefined, user.tokens[(client or 'web')]
