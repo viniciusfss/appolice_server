@@ -48,6 +48,7 @@ class User
     return cb 'No token given' unless token
     db.query 'account/userByToken', {key: token}, (error, value) ->
       return cb error if error
+      console.log value
       for e in value.rows
         return cb undefined, true
       return cb undefined, false
@@ -79,8 +80,20 @@ class User
           console.log 'Result is False'
           return cb 'Passwords does not match'
 
+  byToken: (token, cb) ->
+    # Get the user object. If no user is found, we return an error.
+    return undefined unless typeof cb is 'function'
+    return cb 'No token given' unless token
+    db.query(
+      'account/userByToken',
+      {key: token, include_docs: true},
+      (error, value) ->
+        return cb error if error
+        return cb 'Not found' if value.rows.length <= 0
+        return cb undefined, value.rows)
+
   byID: (id, cb) ->
-    # Get the user object. If no user is found, we return an error status.
+    # Get the user object. If no user is found, we return an error.
     return undefined unless typeof cb is 'function'
 
     id = id.replace(/\D+/g, '') # Validation
