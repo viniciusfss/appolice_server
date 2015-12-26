@@ -6,22 +6,33 @@ ajaxAPIURL = '/api/';
 
 $(document).ready(function() {
   console.log('Initializing Riot router');
-  riot.route.start();
+  rg.router.start();
   console.log('Initializing Stores');
   RiotControl.addStore(userStore);
-  RiotControl.addStore(routerStore);
-  riot.route('/login', function() {
-    return RiotControl.trigger('router_go_login', 'no_redirect');
+  RiotControl.addStore(clientStore);
+  rg.router.add({
+    name: 'login',
+    url: '/login'
   });
-  riot.route('/login/forgot', function() {
-    return RiotControl.trigger('router_go_forgotpass', 'no_redirect');
+  rg.router.add({
+    name: 'login-forgot',
+    url: '/login/forgot'
   });
-  riot.route('/register', function() {
-    console.log('riot.route /register');
-    return RiotControl.trigger('router_go_register', 'no_redirect');
+  rg.router.add({
+    name: 'register',
+    url: '/register'
   });
-  riot.route('/register/policy', function() {
-    return RiotControl.trigger('router_go_policy', 'no_redirect');
+  rg.router.add({
+    name: 'register-policy',
+    url: '/register/policy'
+  });
+  rg.router.add({
+    name: 'dashboard',
+    url: '/home'
+  });
+  rg.router.add({
+    name: 'clients',
+    url: '/clients'
   });
   return riot.mount('my-app');
 });

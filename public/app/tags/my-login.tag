@@ -26,13 +26,13 @@
             <input type="checkbox" id="id_remember" name="remember">
             <label for="inputCheckbox">Lembrar-me</label>
           </div>
-          <a href='#' class="pull-right" onclick={goToForgotPass}>Esqueceu a senha?</a>
+          <a href='#!/login/forgot' class="pull-right" onclick={goToForgotPass}>Esqueceu a senha?</a>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block">Entrar</button>
       </form>
 
-      <p>Não tem uma conta? <a href="#" onclick={goToRegister}>Registre-se</a>
+      <p>Não tem uma conta? <a href="#!/register" onclick={goToRegister}>Registre-se</a>
 
       <footer class="page-copyright page-copyright-inverse">
         <p>Desenvolvido por <a href="http://criar.me">criar.me</a></p>
@@ -42,14 +42,14 @@
   </div>
 
   <script>
+    this.mixin('rg.router');
     var self = this;
-    this.justCreatedAccount = false;
     this.on('mount', function() {
     });
 
-    RiotControl.on('router_go_login', function(action) {
-      if (action === 'just_created_account') {
-        self.justCreatedAccount = true;
+    self.router.on('go', function(current, previous) {
+      if (current.name === 'login') {
+        self.update({justCreatedAccount: current.params.justCreatedAccount});
       }
     });
 
@@ -59,18 +59,18 @@
 
     doLogin(e) {
       vals = {
-        _id: this.login.value,
+        id: this.login.value,
         password: this.password.value
       }
       RiotControl.trigger('userStore_do_login', vals);
     }
 
     goToForgotPass(e) {
-      RiotControl.trigger('router_go_forgotpass');
+      self.router.go('login-forgot');
     }
 
     goToRegister(e) {
-      RiotControl.trigger('router_go_register');
+      self.router.go('register');
     }
   </script>
 </my-login>

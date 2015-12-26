@@ -11,7 +11,7 @@ the website and the RESTAPIs for the application.
   - Testing with jsVerify and Mocha.
 
 ## Installation
-  1. CouchDB server: `sudo apt-get install couchdb`
+  1. MongoDB server: `sudo apt-get install mongodb`
   2. Appolice libraries: `sudo apt-get install build-essential`
 
 It is possible that some more requirements are missing. So install

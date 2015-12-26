@@ -3,23 +3,37 @@ ajaxAPIURL = '/api/'
 
 $(document).ready ->
   console.log 'Initializing Riot router'
-  riot.route.start()
+  rg.router.start()
   console.log 'Initializing Stores'
   RiotControl.addStore userStore
-  RiotControl.addStore routerStore
+  RiotControl.addStore clientStore
 
-  riot.route '/login', () ->
-    RiotControl.trigger 'router_go_login', 'no_redirect'
+  rg.router.add {
+    name: 'login'
+    url: '/login'
+  }
+  rg.router.add {
+    name: 'login-forgot'
+    url: '/login/forgot'
+  }
+  rg.router.add {
+    name: 'register'
+    url: '/register'
+  }
+  rg.router.add {
+    name: 'register-policy'
+    url: '/register/policy'
+  }
 
-  riot.route '/login/forgot', () ->
-    RiotControl.trigger 'router_go_forgotpass', 'no_redirect'
-
-  riot.route '/register', () ->
-    console.log 'riot.route /register'
-    RiotControl.trigger 'router_go_register', 'no_redirect'
-
-  riot.route '/register/policy', () ->
-    RiotControl.trigger 'router_go_policy', 'no_redirect'
+  rg.router.add {
+    name: 'dashboard'
+    url: '/home'
+  }
+  
+  rg.router.add {
+    name: 'clients'
+    url: '/clients'
+  }
 
 
   riot.mount('my-app')

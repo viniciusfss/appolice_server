@@ -4,35 +4,40 @@
   <my-register if={page == 'registerPage'}></my-register>
   <my-dashboard if={page == 'dashboardPage'}></my-dashboard>
   <script>
+    this.mixin('rg.router');
+
     var self = this;
 
     this.on('mount', function() {
       if (localStorage.token === '' || localStorage.token === undefined) {
-        RiotControl.trigger('router_go_login');
+        self.router.go('login');
       } else {
-        RiotControl.trigger('router_go_dashboard');
+        self.router.go('dashboard');
       }
     });
 
-    this.on('update', function() {
-      console.log(this.page);
+    self.router.on('go', function(current, previous) {
+      if (current.name === 'login') {
+        self.update({page: 'loginPage'});
+      }
     });
 
-    RiotControl.on('router_go_dashboard', function() {
-      self.update({page: 'dashboardPage'});
+    self.router.on('go', function(current, previous) {
+      if (current.name === 'dashboard') {
+        self.update({page: 'dashboardPage'});
+      }
     });
 
-    RiotControl.on('router_go_login', function() {
-      self.update({page: 'loginPage'});
+    self.router.on('go', function(current, previous) {
+      if (current.name === 'login-forgot') {
+        self.update({page: 'forgotPassPage'});
+      }
     });
 
-    RiotControl.on('router_go_forgotpass', function() {
-      self.update({page: 'forgotPassPage'});
+    self.router.on('go', function(current, previous) {
+      if (current.name === 'register') {
+        self.update({page: 'registerPage'});
+      }
     });
-
-    RiotControl.on('router_go_register', function() {
-      self.update({page: 'registerPage'});
-    });
-
   </script>
 </my-app>

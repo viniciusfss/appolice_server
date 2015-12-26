@@ -3,6 +3,8 @@ passport = require 'passport'
 tokenStrat = require('passport-accesstoken').Strategy
 
 accounts = require './controllers/accounts'
+clients = require './controllers/clients'
+
 User = require './models/user'
 
 path = require 'path'
@@ -13,13 +15,18 @@ api.set 'views', path.join __dirname, 'views'
 
 passport.use new tokenStrat(
   (token, done) ->
-    user = new User
-    user.exists token, (error, result) ->
-      return done error if error
-      return done null, false if result is false
-      return done null, true
+    return done 'Empty token' unless token?
+    User.findOne(
+      {'tokens.id': token}, (error, user) ->
+        return done error if error
+        return done null, false unless user?
+        return user.validadeToken token, (error, result) ->
+          return done error if error
+          return done null, user
+    )
 )
 
 api.use '/account', accounts
+api.use '/client', clients
 
 module.exports = api

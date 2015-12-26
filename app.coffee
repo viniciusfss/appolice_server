@@ -5,10 +5,12 @@ logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
 csrf = require 'csurf'
+mongoose = require 'mongoose'
 
 ##### CONFIGURATION #####
 # Configure there the PATH to the database
-process.env.COUCHDBPATH = 'http://localhost:5984/'
+
+mongoose.connect 'mongodb://localhost/appolice'
 
 app = express()
 
@@ -33,9 +35,9 @@ api = require './apps/api/api'
 
 # We need to disable CSRF for APIs
 
+# app.use csrf {cookie: false}
 app.use '/api', api
 app.use '/dashboard', dashboard
-app.use csrf {cookie: true}
 app.use '/', website
 
 # catch 404 and forward to error handler

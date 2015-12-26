@@ -45,18 +45,18 @@
   </div>
 
   <script>
+    this.mixin('rg.router');
     this.disableBtn = true;
 
     this.on('mount', function() {
-        console.log('AODFUYISODUFYISUDYF');
-    })
+    });
 
     removeNonNumbers(e) {
       this.login.value = this.login.value.replace(/\D+/g, '');
     }
 
     goToLogin(e) {
-      RiotControl.trigger('router_go_login');
+      this.router.go('login');
     }
 
     validateForm(e) {
