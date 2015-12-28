@@ -3,6 +3,7 @@
   <my-sidebar></my-sidebar>
   <my-content if={toDisplay == 'dashboard'}></my-content>
   <my-clients if={toDisplay == 'clients'}></my-clients>
+  <my-policies if={toDisplay == 'policies'}></my-policies>
   
   <script>
     this.mixin('rg.router');
@@ -15,6 +16,9 @@
       } else if (curr.name === 'clients') {
         self.update({toDisplay: 'clients'});
         RiotControl.trigger('clientStore_getClients');
+      } else if (curr.name === 'policies') {
+        self.update({toDisplay: 'policies'});
+        RiotControl.trigger('policyStore_getPolicies');
       }
     });
     

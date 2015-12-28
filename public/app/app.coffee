@@ -7,6 +7,7 @@ $(document).ready ->
   console.log 'Initializing Stores'
   RiotControl.addStore userStore
   RiotControl.addStore clientStore
+  RiotControl.addStore policyStore
 
   rg.router.add {
     name: 'login'
@@ -35,5 +36,9 @@ $(document).ready ->
     url: '/clients'
   }
 
+  rg.router.add {
+    name: 'policies'
+    url: '/policies'
+  }
 
   riot.mount('my-app')

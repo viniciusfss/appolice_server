@@ -11,7 +11,7 @@
             </a>
           </li>
           <li class="site-menu-item has-sub">
-            <a class="animsition-link" href="#">
+            <a class="animsition-link" href="#" onclick="{goPolicies}">
               <i class="site-menu-icon wb-book" aria-hidden="true"></i>
               <span class="site-menu-title">Apólices Comuns</span>
             </a>
@@ -40,5 +40,9 @@
     goClients() {
       rg.router.go("clients");
     };
+    
+    goPolicies() {
+      rg.router.go("policies");
+    }
   </script>
 </my-sidebar>

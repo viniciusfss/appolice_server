@@ -32,6 +32,7 @@ passport.authenticate('token', session: false),
     return res.status(400).jsonp error if error
     for client in clients
       client.password = undefined
+      client.tokens = undefined
     return res.jsonp clients
 
 # Returns the client registered by this broker.
@@ -42,6 +43,7 @@ passport.authenticate('token', session: false),
     return res.status(400).jsonp error if error
     return res.status(404).jsonp 'not_found' if client is null
     client.password = undefined
+    client.tokens = undefined
     return res.jsonp result
 
 # Updates the client registered by this broker.

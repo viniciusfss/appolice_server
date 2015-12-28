@@ -3,7 +3,7 @@
 class ClientStore
 
   constructor: () ->
-    console.log 'Creating a clientStore'
+    console.log 'Creating ClientStore'
     riot.observable @
 
   getClients: () ->

@@ -4,7 +4,7 @@ var ClientStore, clientStore;
 
 ClientStore = (function() {
   function ClientStore() {
-    console.log('Creating a clientStore');
+    console.log('Creating ClientStore');
     riot.observable(this);
   }
 

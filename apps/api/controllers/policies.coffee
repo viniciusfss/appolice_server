@@ -1,15 +1,22 @@
 express = require 'express'
 passport = require 'passport'
-User = require '../models/user'
+Client = require '../models/user'
 router = express.Router()
 
 # Get all policies from all clients
 router.get '/',
 passport.authenticate('token', session: false),
 (req, res, next) ->
-  Client.find {broker: req.user}, (error, clients) ->
+  Client.find {broker: req.user, active: true}, (error, clients) ->
     return res.status(400).jsonp error if error
-    return res.jsonp clients.policies
+    console.log clients
+    policies = []
+    for client in clients # Clear important fields
+      data = {id: client.id, email: client.email, policies: client.policies}
+      policies.push data
+      
+    console.log policies
+    return res.jsonp policies
 
 # Create a new policy on client with :id
 router.put '/:id/new',

@@ -10,6 +10,7 @@ $(document).ready(function() {
   console.log('Initializing Stores');
   RiotControl.addStore(userStore);
   RiotControl.addStore(clientStore);
+  RiotControl.addStore(policyStore);
   rg.router.add({
     name: 'login',
     url: '/login'
@@ -33,6 +34,10 @@ $(document).ready(function() {
   rg.router.add({
     name: 'clients',
     url: '/clients'
+  });
+  rg.router.add({
+    name: 'policies',
+    url: '/policies'
   });
   return riot.mount('my-app');
 });
