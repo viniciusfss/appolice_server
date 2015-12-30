@@ -11,9 +11,9 @@
       <div each="{policy in policies}" class="panel">
         <header class="panel-heading">
           <h3 class="panel-title">
-              Novidades
+              {policy.title}
             <span class="panel-desc">
-              DESCRIPTION
+              {policy.subtitle}
             </span>
         </h3>
         </header>
@@ -54,7 +54,7 @@
               <label for="selectClientInput">Cliente</label>
               <select class="form-control" id="selectClientInput" required>
                 <option>Escolha da lista abaixo</option>
-                <option each="{client in clients}">{client.id}: {client.email}</option>
+                <option each="{client in clients}" value="{client.id}">{client.email}</option>
               </select>
             </div>
             <div class="form-group">
@@ -64,7 +64,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" onclick="{createClient}" data-dismiss="modal">Salvar</button>
+            <button type="button" class="btn btn-primary" onclick="{createPolicy}" data-dismiss="modal">Salvar</button>
           </div>
         </form>
       </div>
@@ -75,14 +75,32 @@
     this.mixin('rg.router');
     var self = this;    
     this.policies = [];
-    this.clients = []
+    this.clients = [];
+
+    createPolicy(e) {
+      policy = {
+        id: this.selectClientInput.value,
+        title: this.titleInput.value,
+        subtitle: this.subTitleInput.value,
+      };
+      RiotControl.trigger('policyStore_addPolicyToClient', policy);
+    }
     
     RiotControl.on('policyStore_getPolicies_done', function(data) {
-      policies = []
-      for (policy in data.policies) {
-        pol = {policy: policy, id: data.id, email: data.email}
-        policies.push(pol);
+      var policies = []
+      for (var it in data) {
+        for (var itr in data[it].policies) {
+          policy = data[it].policies[itr];
+          var pol = {
+            title: policy.title,
+            subtitle: policy.subtitle,
+            id: data[it].id,
+            email: data[it].email
+          }
+          policies.push(pol);
+        }
       }
+      console.log(policies);
       self.update({policies: policies, clients: data});
     });
   </script>

@@ -33,7 +33,7 @@ router.put '/login', (req, res, next) ->
     console.log 'PUT request on: /account/login FAILED'
     console.log req.body
     return res.status(400).jsonp 'Empty Field'
-#   else
+
   console.log 'PUT request on: /account/login'
   id = req.body.id.replace /\D+/g, ''
   client = req.body.client or 'web'

@@ -25,6 +25,25 @@ PolicyStore = (function() {
     });
   };
 
+  PolicyStore.prototype.addPolicy = function(data) {
+    var self, urlTo;
+    self = this;
+    urlTo = ajaxAPIURL + 'policy/' + data.id + '/new';
+    return $.ajax({
+      url: urlTo,
+      method: 'put',
+      data: data
+    }).done(function(data, status) {
+      console.log('AJAX method successful');
+      console.log(data);
+      return self.trigger('policyStore_getPolicies');
+    }).fail(function(req, error) {
+      console.log('AJAX method failed');
+      console.log(error);
+      return self.trigger('policyStore_getPolicies_error', req.status);
+    });
+  };
+
   return PolicyStore;
 
 })();
@@ -33,4 +52,9 @@ policyStore = new PolicyStore;
 
 policyStore.on('policyStore_getPolicies', function() {
   return this.getPolicies();
+});
+
+policyStore.on('policyStore_addPolicyToClient', function(policy) {
+  console.log(policy);
+  return this.addPolicy(policy);
 });

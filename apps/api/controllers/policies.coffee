@@ -24,7 +24,7 @@ passport.authenticate('token', session: false),
 (req, res, next) ->
   Client.findOne {id: req.params.id, broker: req.user}, (error, client) ->
     return res.status(400).jsonp error if error
-    return res.status(404).jsonp 'not_found' if result is null
+    return res.status(404).jsonp 'not_found' if client is null
     client.policies.push req.body
     return client.save (error, result) ->
       return res.status(400).jsonp error if error
