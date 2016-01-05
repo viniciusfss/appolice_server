@@ -74,7 +74,7 @@
 
     doRegister(e) {
       vals = {
-        _id: this.login.value,
+        id: this.login.value,
         email: this.email.value,
         password: this.password.value
       }

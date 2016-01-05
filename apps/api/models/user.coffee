@@ -19,6 +19,7 @@ userSchema = new Schema {
     isForCar: Boolean
     title: String
     subtitle: String
+    value: Number
     file: Buffer # There are limitation on saving files on MongoDB.
     brand: String
     model: String

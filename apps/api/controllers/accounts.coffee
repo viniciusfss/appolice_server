@@ -8,6 +8,7 @@ router = express.Router()
 
 # Create a new user. No required authentication.
 router.put '/create', (req, res, next) ->
+  console.log req.body
   unless req.body.id? and req.body.email? and req.body.password?
     console.log 'PUT request on: /account/create FAILED'
     return res.status(400).jsonp 'error': 'empty_field'

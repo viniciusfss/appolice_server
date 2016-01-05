@@ -22,6 +22,7 @@ passport.authenticate('token', session: false),
 router.put '/:id/new',
 passport.authenticate('token', session: false),
 (req, res, next) ->
+  console.log req.body
   Client.findOne {id: req.params.id, broker: req.user}, (error, client) ->
     return res.status(400).jsonp error if error
     return res.status(404).jsonp 'not_found' if client is null
@@ -29,5 +30,26 @@ passport.authenticate('token', session: false),
     return client.save (error, result) ->
       return res.status(400).jsonp error if error
       return res.jsonp result
+
+
+# Updates a policy on client with :id
+router.put '/:id/edit',
+  passport.authenticate('token', session: false),
+  (req, res, next) ->
+    console.log req.body
+    Client.findOne {id: req.params.id, broker: req.user}, (error, client) ->
+      return res.status(400).jsonp error if error
+      return res.status(404).jsonp 'not_found' if client is null
+      console.log client.policies
+      for policy in client.policies
+        if (policy._id.toString()) is (req.body._id)
+          console.log 'YEAH'
+          policy = req.body
+      console.log client.policies
+
+#  client.policies
+    #  return client.save (error, result) ->
+    #    return res.status(400).jsonp error if error
+    #    return res.jsonp result
 
 module.exports = router

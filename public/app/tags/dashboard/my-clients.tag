@@ -33,6 +33,12 @@
           </div>
         </div>
       </div>
+      <div if="{clients.length <= 0}" class="panel text-center">
+        <header class="panel-heading">
+          <h3 class="panel-title">Você não possui clientes cadastrados.</h3>
+        </header>
+        <div class="panel-body">Para começar, selecione Novo Cliente acima.</div>
+      </div>
     </div>
   </div>
   

@@ -25,7 +25,27 @@ class PolicyStore
 
   addPolicy: (data) ->
     self = @
-    urlTo = ajaxAPIURL + 'policy/' + data.id + '/new'
+    urlTo = ajaxAPIURL + 'policy/' + data.clientId + '/new'
+    $.ajax({
+      url: urlTo
+      method: 'put'
+      data: data
+    })
+    .done((data, status) ->
+      console.log 'AJAX method successful'
+      console.log data
+      self.trigger 'policyStore_getPolicies'
+    )
+    .fail((req, error) ->
+      console.log 'AJAX method failed'
+      console.log error
+      self.trigger 'policyStore_getPolicies_error', req.status
+    )
+
+  editPolicy: (data) ->
+    self = @
+    console.log data
+    urlTo = ajaxAPIURL + 'policy/' + data.clientId + '/edit'
     $.ajax({
       url: urlTo
       method: 'put'
@@ -48,5 +68,7 @@ policyStore.on 'policyStore_getPolicies', () ->
   this.getPolicies()
 
 policyStore.on 'policyStore_addPolicyToClient', (policy) ->
-  console.log policy
   this.addPolicy(policy)
+
+policyStore.on 'policyStore_editPolicy', (policy) ->
+  this.editPolicy(policy)
