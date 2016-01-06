@@ -48,6 +48,13 @@ router.put '/:id/edit',
           policy.title = req.body.title
           policy.subtitle = req.body.subtitle
           policy.value = req.body.value
+          policy.brand = req.body.brand
+          policy.model = req.body.model
+          policy.plate = req.body.plate
+          policy.productionYear = req.body.productionYear
+          policy.modelYear = req.body.modelYear
+          policy.colour = req.body.colour
+          policy.driver = req.body.driver
           client.policies[i] = policy
       return client.save (error, result) ->
         return res.status(400).jsonp error if error
