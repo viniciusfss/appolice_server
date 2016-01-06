@@ -13,14 +13,17 @@ $(document).ready ->
     name: 'login'
     url: '/login'
   }
+  
   rg.router.add {
     name: 'login-forgot'
     url: '/login/forgot'
   }
+  
   rg.router.add {
     name: 'register'
     url: '/register'
   }
+  
   rg.router.add {
     name: 'register-policy'
     url: '/register/policy'
@@ -39,6 +42,11 @@ $(document).ready ->
   rg.router.add {
     name: 'policies'
     url: '/policies'
+  }
+  
+  rg.router.add {
+    name: 'car-policies'
+    url: '/car-policies'
   }
 
   riot.mount('my-app')

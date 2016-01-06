@@ -5,6 +5,7 @@ tokenStrat = require('passport-accesstoken').Strategy
 accounts = require './controllers/accounts'
 clients = require './controllers/clients'
 policies = require './controllers/policies'
+carPolicies = require './controllers/carPolicies'
 
 User = require './models/user'
 
@@ -30,5 +31,6 @@ passport.use new tokenStrat(
 api.use '/account', accounts
 api.use '/client', clients
 api.use '/policy', policies
+api.use '/car-policy', carPolicies
 
 module.exports = api

@@ -64,6 +64,62 @@ PolicyStore = (function() {
     });
   };
 
+  PolicyStore.prototype.getCarPolicies = function() {
+    var self;
+    self = this;
+    return $.ajax({
+      url: ajaxAPIURL + 'car-policy',
+      method: 'get'
+    }).done(function(data, status) {
+      console.log('AJAX method successful');
+      console.log(data);
+      return self.trigger('policyStore_getCarPolicies_done', data);
+    }).fail(function(req, error) {
+      console.log('AJAX method failed');
+      console.log(error);
+      return self.trigger('policyStore_getCarPolicies_error', req.status);
+    });
+  };
+
+  PolicyStore.prototype.addCarPolicy = function(data) {
+    var self, urlTo;
+    self = this;
+    urlTo = ajaxAPIURL + 'car-policy/' + data.clientId + '/new';
+    return $.ajax({
+      url: urlTo,
+      method: 'put',
+      data: data
+    }).done(function(data, status) {
+      console.log('AJAX method successful');
+      console.log(data);
+      return self.trigger('policyStore_getCarPolicies');
+    }).fail(function(req, error) {
+      console.log('AJAX method failed');
+      console.log(error);
+      return self.trigger('policyStore_getCarPolicies_error', req.status);
+    });
+  };
+
+  PolicyStore.prototype.editCarPolicy = function(data) {
+    var self, urlTo;
+    self = this;
+    console.log(data);
+    urlTo = ajaxAPIURL + 'car-policy/' + data.clientId + '/edit';
+    return $.ajax({
+      url: urlTo,
+      method: 'put',
+      data: data
+    }).done(function(data, status) {
+      console.log('AJAX method successful');
+      console.log(data);
+      return self.trigger('policyStore_getCarPolicies');
+    }).fail(function(req, error) {
+      console.log('AJAX method failed');
+      console.log(error);
+      return self.trigger('policyStore_getCarPolicies_error', req.status);
+    });
+  };
+
   return PolicyStore;
 
 })();
@@ -80,4 +136,16 @@ policyStore.on('policyStore_addPolicyToClient', function(policy) {
 
 policyStore.on('policyStore_editPolicy', function(policy) {
   return this.editPolicy(policy);
+});
+
+policyStore.on('policyStore_getCarPolicies', function() {
+  return this.getCarPolicies();
+});
+
+policyStore.on('policyStore_addCarPolicyToClient', function(policy) {
+  return this.addCarPolicy(policy);
+});
+
+policyStore.on('policyStore_editCarPolicy', function(policy) {
+  return this.editCarPolicy(policy);
 });

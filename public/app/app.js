@@ -39,5 +39,9 @@ $(document).ready(function() {
     name: 'policies',
     url: '/policies'
   });
+  rg.router.add({
+    name: 'car-policies',
+    url: '/car-policies'
+  });
   return riot.mount('my-app');
 });

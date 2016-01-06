@@ -4,6 +4,20 @@ bcrypt = require 'bcryptjs'
 jwt = require 'jsonwebtoken'
 
 # Schema is not fixed!
+policySchema = new Schema {
+  isForCar: Boolean, default: false
+  title: String
+  subtitle: String
+  value: Number
+  file: Buffer # There are limitation on saving files on MongoDB.
+  brand: String
+  model: String
+  plate: String
+  productionYear: Number
+  modelYear: Number
+  colour: String
+  driver: String
+}
 userSchema = new Schema {
   id: type: String, unique: true
   password: String
@@ -15,20 +29,7 @@ userSchema = new Schema {
   active: type: Boolean, default: true
   clients: [ type: Schema.Types.ObjectId, ref: 'User' ] # Clients
   broker: type: Schema.Types.ObjectId, ref: 'User' # Broker
-  policies: [
-    isForCar: Boolean
-    title: String
-    subtitle: String
-    value: Number
-    file: Buffer # There are limitation on saving files on MongoDB.
-    brand: String
-    model: String
-    plate: String
-    productionYear: Number
-    modelYear: Number
-    colour: String
-    driver: String
-  ]
+  policies: [policySchema]
 }
 
 userSchema.methods.hashPassword = (pass, cb) ->

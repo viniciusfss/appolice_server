@@ -17,7 +17,7 @@
             </a>
           </li>
           <li class="site-menu-item">
-            <a class="animsition-link" href="#">
+            <a class="animsition-link" href="#" onclick="{goCarPolicies}">
               <i class="site-menu-icon wb-hammer" aria-hidden="true"></i>
               <span class="site-menu-title">Apólices de Veículos</span>
             </a>
@@ -44,5 +44,9 @@
     goPolicies() {
       rg.router.go("policies");
     }
+    
+    goCarPolicies() {
+      rg.router.go("car-policies");
+    };
   </script>
 </my-sidebar>
