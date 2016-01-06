@@ -12,7 +12,12 @@ passport.authenticate('token', session: false),
     console.log clients
     policies = []
     for client in clients # Clear important fields
-      data = {id: client.id, email: client.email, policies: client.policies}
+      clientPolicies = []
+      for policy in client.policies
+        if policy.isForCar isnt true
+          clientPolicies.push policy
+        
+      data = {id: client.id, email: client.email, policies: clientPolicies}
       policies.push data
       
     console.log policies
