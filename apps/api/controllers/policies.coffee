@@ -36,16 +36,18 @@ passport.authenticate('token', session: false),
 router.put '/:id/edit',
   passport.authenticate('token', session: false),
   (req, res, next) ->
-    console.log req.body
     Client.findOne {id: req.params.id, broker: req.user}, (error, client) ->
       return res.status(400).jsonp error if error
       return res.status(404).jsonp 'not_found' if client is null
-      console.log client.policies
-      for policy in client.policies
+      for policy, i in client.policies
         if (policy._id.toString()) is (req.body._id)
-          console.log 'YEAH'
-          policy = req.body
-      console.log client.policies
+          policy.title = req.body.title
+          policy.subtitle = req.body.subtitle
+          policy.value = req.body.value
+          client.policies[i] = policy
+      return client.save (error, result) ->
+        return res.status(400).jsonp error if error
+        return res.jsonp result
 
 #  client.policies
     #  return client.save (error, result) ->
