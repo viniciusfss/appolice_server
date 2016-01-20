@@ -13,7 +13,7 @@
     this.router.on('go', function(curr, next) {
       if (curr.name === 'dashboard') {
         self.update({toDisplay: 'dashboard'});
-        RiotControl.trigger('newStore_updateData');
+        RiotControl.trigger('userStore_get_account_details');
       } else if (curr.name === 'clients') {
         self.update({toDisplay: 'clients'});
         RiotControl.trigger('clientStore_getClients');

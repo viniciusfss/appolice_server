@@ -37,13 +37,13 @@ userStore.on('userStore_check_token', function() {
   }
 });
 
-userStore.on('userStore_get_account_details', function(cb) {
+userStore.on('userStore_get_account_details', function() {
   return $.ajax({
     url: ajaxAPIURL + 'account/',
     method: 'get'
   }).done(function(data, status) {
     console.log('AJAX method successful!');
-    return cb(void 0, data);
+    return RiotControl.trigger('userStore_get_account_details_done', data);
   }).fail(function(req, error) {
     console.log('AJAX method failed!');
     return console.log(req);
@@ -77,6 +77,24 @@ userStore.on('userStore_do_register', function(data) {
     return rg.router.go('login', {
       justCreatedAccount: true
     });
+  }).fail(function(req, error) {
+    console.log('AJAX method failed!');
+    return console.log(req);
+  });
+});
+
+userStore.on('userStore_update_profile', function(data) {
+  console.log('userStore_update_profile');
+  return $.ajax({
+    url: ajaxAPIURL + 'account/update',
+    method: 'put',
+    data: data,
+    cache: false,
+    contentType: false,
+    processData: false
+  }).done(function(data, status) {
+    console.log('AJAX method successful!');
+    return RiotControl.trigger('userStore_get_account_details');
   }).fail(function(req, error) {
     console.log('AJAX method failed!');
     return console.log(req);

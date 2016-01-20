@@ -22,14 +22,14 @@ userStore.on 'userStore_check_token', () ->
     })
     rg.router.go 'dashboard'
 
-userStore.on 'userStore_get_account_details', (cb) ->
+userStore.on 'userStore_get_account_details', () ->
   $.ajax({
     url: ajaxAPIURL + 'account/'
     method: 'get'
   })
   .done((data, status) ->
     console.log 'AJAX method successful!'
-    cb undefined, data
+    RiotControl.trigger 'userStore_get_account_details_done', data
   )
   .fail((req, error) ->
     console.log 'AJAX method failed!'
@@ -63,6 +63,25 @@ userStore.on 'userStore_do_register', (data) ->
   .done((data, status) ->
     console.log 'AJAX method successful!'
     rg.router.go 'login', {justCreatedAccount: true}
+  )
+  .fail((req, error) ->
+    console.log 'AJAX method failed!'
+    console.log req
+  )
+
+userStore.on 'userStore_update_profile', (data) ->
+  console.log 'userStore_update_profile'
+  $.ajax({
+    url: ajaxAPIURL + 'account/update'
+    method: 'put'
+    data: data
+    cache: false
+    contentType: false
+    processData: false
+  })
+  .done((data, status) ->
+    console.log 'AJAX method successful!'
+    RiotControl.trigger 'userStore_get_account_details'
   )
   .fail((req, error) ->
     console.log 'AJAX method failed!'

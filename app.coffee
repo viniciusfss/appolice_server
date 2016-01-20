@@ -6,6 +6,7 @@ cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
 csrf = require 'csurf'
 mongoose = require 'mongoose'
+cors = require 'cors'
 
 ##### CONFIGURATION #####
 # Configure there the PATH to the database
@@ -32,6 +33,13 @@ app.use express.static path.join __dirname, 'public'
 website = require './apps/website/website'
 dashboard = require './apps/dashboard/dashboard'
 api = require './apps/api/api'
+
+# Allow CORS
+app.use cors()
+#app.use (req, res, next) ->
+#  res.header("Access-Control-Allow-Origin", "*")
+#  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+#  next()
 
 # We need to disable CSRF for APIs
 

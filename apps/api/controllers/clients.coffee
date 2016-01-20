@@ -52,7 +52,6 @@ router.put '/:id/update',
 passport.authenticate('token', session: false),
 (req, res, next) ->
   Client.findOne {id: req.params.id, broker: req.user}, (error, client) ->
-    console.log req.body
     return res.status(400).jsonp error if error
     return res.status(404).jsonp 'not_found' if client is null
     client.active = req.body.active if req.body.active
@@ -60,5 +59,38 @@ passport.authenticate('token', session: false),
     return client.save (error, result) ->
       return res.status(400).jsonp error if error
       return res.jsonp result
+
+## CLIENT FIRST PASSWORD-LESS AUTHENTICATION
+# First usage client login. To handle password creation on mobile app.
+router.put '/passwordToken', (req, res, next) ->
+  console.log req.body
+  return res.status(400).jsonp 'Empty Field' unless req.body.username?
+  client = req.body
+  Client.findOne {id: req.body.username}, (error, brokerClient) ->
+    return res.status(500).jsonp error if error
+    return res.status(404).jsonp 'Not found' unless brokerClient?
+    return res.status(400).jsonp 'Already has password' if brokerClient.password isnt undefined
+    return brokerClient.generateTempToken client, (error, token) ->
+      return res.status(400).jsonp error if error
+      return res.jsonp 'token': token
+
+# Save a new password on the database
+router.put '/savePass', (req, res, next) ->
+  console.log req.body
+  Client.findOne {id: req.body.username, tempToken: req.body.tempToken}, (error, brokerClient) ->
+    return res.status(500).jsonp error if error
+    return res.status(404).jsonp 'Not found' unless brokerClient?
+    return res.status(400).jsonp 'Already has password' if brokerClient.password isnt undefined
+    return brokerClient.hashPassword req.body.password, (error, hashedPassword) ->
+      return res.status(400).jsonp error if error
+      return (
+        brokerClient.password = hashedPassword
+        brokerClient.save (error, result) ->
+          return res.status(400).jsonp error.message if error
+          result.password = undefined
+          result.__v = undefined
+          return res.jsonp result
+      )
+
 
 module.exports = router

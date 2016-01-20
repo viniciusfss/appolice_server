@@ -2,6 +2,11 @@ express = require 'express'
 passport = require 'passport'
 User = require '../models/user'
 router = express.Router()
+path = require 'path'
+UPLOAD_PATH = 'public/img/users/'
+
+multer = require 'multer'
+upload = multer({dest: UPLOAD_PATH})
 
 ## Account: C R U x [No delete]
 
@@ -17,6 +22,7 @@ router.put '/create', (req, res, next) ->
   user = new User
   user.id = req.body.id.replace /\D+/g, ''
   user.email = req.body.email
+  user.isBroker = true
   password = req.body.password
   user.hashPassword password, (error, hashedPassword) ->
     return res.status(400).jsonp error if error
@@ -39,14 +45,14 @@ router.put '/login', (req, res, next) ->
   id = req.body.id.replace /\D+/g, ''
   client = req.body.client or 'web'
   User.findOne {id: id}, (error, user) ->
-    return res.status(404).jsonp error if error
+    return res.status(500).jsonp error if error
     return res.status(404).jsonp 'Not found' unless user?
     return user.generateToken client, (error, token) ->
-      return res.status(400).jsonp error if error
+      return res.status(500).jsonp error if error
       return res.jsonp 'token': token
 
 # Get user information. Authentication needed.
-router.get '/', 
+router.get '/',
 passport.authenticate('token', session: false),
   (req, res, next) ->
     console.log 'GET request on: /account/'
@@ -57,12 +63,36 @@ passport.authenticate('token', session: false),
     return res.jsonp 'user': user
 
 # Update account by ID. Authentication and ownership required.
-# TODO: Create this stuff
-router.put '/update', passport.authenticate('token', session: false),
-  (req, res, next) ->
-    user = new User
-    user.byID req.user.id, (error, user) ->
-      return res.status(error).jsonp 'error': error if error
+router.put '/update',
+[passport.authenticate('token', session: false), upload.single('file')],
+(req, res, next) ->
+    file = req.file
+    me = req.user
+    if req.file
+      host = req.get('host')
+      p1 = file.path.split(path.sep)
+      p1.shift()
+      p2 = [host].concat(p1)
+      console.log p2
+      p3 = p2.join('/')
+      me.imgPath = req.protocol + "://" + p3
+
+    me.name = req.body.name if req.body.name
+    me.email = req.body.email if req.body.email
+    me.location = req.body.location if req.body.location
+    me.phone = req.body.phone if req.body.phone
+
+    me.kindOfPolicies.carPolicy = if req.body.carPolicy is 'true' then true else false
+    me.kindOfPolicies.workPolicy = if req.body.workPolicy is 'true' then true else false
+    me.kindOfPolicies.devicePolicy = if req.body.devicePolicy is 'true' then true else false
+    me.kindOfPolicies.travelPolicy = if req.body.travelPolicy is 'true' then true else false
+    me.kindOfPolicies.lifePolicy = if req.body.lifePolicy is 'true' then true else false
+    me.kindOfPolicies.propertyPolicy = if req.body.propertyPolicy is 'true' then true else false
+    me.kindOfPolicies.personalPolicy = if req.body.personalPolicy is 'true' then true else false
+
+    return me.save (error, result) ->
+      return res.status(500).jsonp error if error
+      return res.jsonp result
 
 
 # router.get(

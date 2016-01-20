@@ -5,25 +5,25 @@
         <ul class="site-menu">
           <li class="site-menu-category">Geral</li>
           <li class="site-menu-item">
-            <a class="animsition-link" href="#" onclick="{goClients}">
+            <a class="" href="#" onclick="{goClients}">
               <i class="site-menu-icon wb-users" aria-hidden="true"></i>
               <span class="site-menu-title">Clientes</span>
             </a>
           </li>
           <li class="site-menu-item has-sub">
-            <a class="animsition-link" href="#" onclick="{goPolicies}">
+            <a class="" href="#" onclick="{goPolicies}">
               <i class="site-menu-icon wb-book" aria-hidden="true"></i>
               <span class="site-menu-title">Apólices Comuns</span>
             </a>
           </li>
           <li class="site-menu-item">
-            <a class="animsition-link" href="#" onclick="{goCarPolicies}">
+            <a class="" href="#" onclick="{goCarPolicies}">
               <i class="site-menu-icon wb-hammer" aria-hidden="true"></i>
               <span class="site-menu-title">Apólices de Veículos</span>
             </a>
           </li>
           <li class="site-menu-item">
-            <a class="animsition-link" href="#">
+            <a class="" href="#">
               <i class="site-menu-icon wb-bookmark" aria-hidden="true"></i>
               <span class="site-menu-title">Sinistros</span>
             </a>

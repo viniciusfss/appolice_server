@@ -6,6 +6,7 @@ accounts = require './controllers/accounts'
 clients = require './controllers/clients'
 policies = require './controllers/policies'
 carPolicies = require './controllers/carPolicies'
+brokers = require './controllers/brokers'
 
 User = require './models/user'
 
@@ -32,5 +33,6 @@ api.use '/account', accounts
 api.use '/client', clients
 api.use '/policy', policies
 api.use '/car-policy', carPolicies
+api.use '/broker', brokers
 
 module.exports = api
