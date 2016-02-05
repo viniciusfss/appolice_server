@@ -1,5 +1,6 @@
 app = require '../app'
 debug = require('debug') 'appolice_server:server'
+
 http = require 'http'
 
 # Normalize a port into a number, string, or false.
@@ -40,10 +41,12 @@ onListening = ->
 
 
 # Get port from environment and store in Express.
-port = '3000'
+host = process.env.OPENSHIFT_NODEJS_IP or 'localhost'
+port = process.env.OPENSHIFT_NODEJS_PORT or '3000'
 app.set 'port', port
+app.set 'host', host
 
-console.log 'Server running on http://localhost:' + port
+console.log 'Server running on http://' + host + ':' + port
 
 # Create HTTP server.
 server = http.createServer app
