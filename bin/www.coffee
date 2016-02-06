@@ -52,6 +52,6 @@ console.log 'Server running on http://' + host + ':' + port
 server = http.createServer app
 
 # Listen on provided port, on all network interfaces.
-server.listen port
+server.listen port, host
 server.on 'error', onError
 server.on 'listening', onListening
