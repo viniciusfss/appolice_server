@@ -13,17 +13,17 @@ $(document).ready ->
     name: 'login'
     url: '/login'
   }
-  
+
   rg.router.add {
     name: 'login-forgot'
     url: '/login/forgot'
   }
-  
+
   rg.router.add {
     name: 'register'
     url: '/register'
   }
-  
+
   rg.router.add {
     name: 'register-policy'
     url: '/register/policy'
@@ -33,7 +33,7 @@ $(document).ready ->
     name: 'dashboard'
     url: '/home'
   }
-  
+
   rg.router.add {
     name: 'clients'
     url: '/clients'
@@ -43,10 +43,15 @@ $(document).ready ->
     name: 'policies'
     url: '/policies'
   }
-  
+
   rg.router.add {
     name: 'car-policies'
     url: '/car-policies'
+  }
+
+  rg.router.add {
+    name: 'messages'
+    url: '/messages'
   }
 
   riot.mount('my-app')

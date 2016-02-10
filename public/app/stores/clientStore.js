@@ -41,6 +41,26 @@ ClientStore = (function() {
     });
   };
 
+  ClientStore.prototype.sendMsg = function(data) {
+    var dataId, self, url;
+    self = this;
+    dataId = data.id;
+    url = ajaxAPIURL + 'client/' + dataId + '/msg';
+    console.log(url);
+    return $.ajax({
+      url: url,
+      method: 'put',
+      data: data
+    }).done(function(data, status) {
+      console.log('AJAX method successful: updateClient');
+      return self.trigger('clientStore_sendMsg_done', data);
+    }).fail(function(req, error) {
+      console.log('AJAX method failed');
+      console.log(req.status);
+      return self.trigger('clientStore_updateClient_error', req.status);
+    });
+  };
+
   ClientStore.prototype.updateClient = function(data) {
     var dataId, self, url;
     self = this;
@@ -69,6 +89,10 @@ clientStore = new ClientStore;
 
 clientStore.on('clientStore_createClient', function(client) {
   return this.createClient(client);
+});
+
+clientStore.on('clientStore_sendMsg', function(text) {
+  return this.sendMsg(text);
 });
 
 clientStore.on('clientStore_getClients', function() {

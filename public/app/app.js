@@ -43,5 +43,9 @@ $(document).ready(function() {
     name: 'car-policies',
     url: '/car-policies'
   });
+  rg.router.add({
+    name: 'messages',
+    url: '/messages'
+  });
   return riot.mount('my-app');
 });

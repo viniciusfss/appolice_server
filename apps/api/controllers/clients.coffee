@@ -60,6 +60,39 @@ passport.authenticate('token', session: false),
       return res.status(400).jsonp error if error
       return res.jsonp result
 
+# Creates a new message from broker to the client with :id
+router.put '/:id/msg',
+passport.authenticate('token', session: false),
+(req, res, next) ->
+  console.log req.body
+  return res.status(400).jsonp 'no_msg' if req.body.text is ''
+  return res.status(400).jsonp 'no_msg' if req.body.text is undefined
+  return res.status(400).jsonp 'no_msg' if req.body.text is null
+  Client.findOne {id: req.params.id, broker: req.user}, (error, client) ->
+    return res.status(400).jsonp error if error
+    return res.status(404).jsonp 'not_found' if client is null
+    msg = {from: (req.user.name || req.user.email), text: req.body.text}
+    client.messages.push msg
+    client.save (error, result) ->
+      return res.status(400).jsonp error if error
+      console.log result.messages
+      return res.jsonp result.messages
+
+# Creates a new message from user to the broker
+router.put '/msg',
+passport.authenticate('token', session: false),
+(req, res, next) ->
+  console.log req.body
+  return res.status(400).jsonp 'no_msg' if req.body.text is ''
+  return res.status(400).jsonp 'no_msg' if req.body.text is undefined
+  return res.status(400).jsonp 'no_msg' if req.body.text is null
+  msg = {from: req.body.from, text: req.body.text}
+  req.user.push msg
+  req.user.save (error, result) ->
+    return res.status(400).jsonp error if error
+    return res.jsonp 'ok'
+
+
 ## CLIENT FIRST PASSWORD-LESS AUTHENTICATION
 # First usage client login. To handle password creation on mobile app.
 router.put '/passwordToken', (req, res, next) ->
@@ -91,6 +124,5 @@ router.put '/savePass', (req, res, next) ->
           result.__v = undefined
           return res.jsonp result
       )
-
 
 module.exports = router

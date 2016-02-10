@@ -20,7 +20,7 @@
                 <span class="wb-pencil"></span> Editar</button>
             </span>
             <span class="panel-desc">
-              {client.id} 
+              {client.id}
             </span>
         </h3>
         </header>
@@ -41,7 +41,8 @@
       </div>
     </div>
   </div>
-  
+
+
   <div id="createClient" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -54,12 +55,12 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="idInput">CPF/CNPJ</label>
-              <input class="form-control" type="text" id="idInput" name="idInput" 
+              <input class="form-control" type="text" id="idInput" name="idInput"
                      placeholder="111.111.111-11" onkeyup="{removeNonNumbers}" required />
             </div>
             <div class="form-group">
               <label for="emailInput">Email</label>
-              <input class="form-control" type="text" id="emailInput" name="emailInput" 
+              <input class="form-control" type="text" id="emailInput" name="emailInput"
                      placeholder="ana.belle@foo.com.br" required />
             </div>
           </div>
@@ -71,7 +72,7 @@
       </div>
     </div>
   </div>
-  
+
   <div id="editPanel" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -84,7 +85,7 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="emailEditInput">Email</label>
-              <input class="form-control" type="text" id="emailEditInput" name="emailEditInput" 
+              <input class="form-control" type="text" id="emailEditInput" name="emailEditInput"
                      placeholder="ana.belle@foo.com.br" value="{client.email}" required />
             </div>
             <div class="form-group">
@@ -101,7 +102,7 @@
       </div>
     </div>
   </div>
-  
+
   <script>
     this.mixin('rg.router');
     var self = this;
@@ -113,13 +114,17 @@
         self.update();
       }
     });
-    
-    this.client = { id: null, email: null, active: null };
-    
+
+    this.client = { id: null, email: null, active: null, messages: null };
+
     removeNonNumbers(e) {
       this.idInput.value = this.idInput.value.replace(/\D+/g, '');
     }
-    
+
+    msgClient(e) {
+      console.log(!e.item.client.messages || e.item.client.messages.length <= 0);
+    }
+
     createClient() {
       console.log(self.idInput.value, self.emailInput.value);
       client = {
@@ -128,28 +133,28 @@
       }
       RiotControl.trigger('clientStore_createClient', client);
     }
-    
+
     editPanel(event) {
       self.client.id = event.item.client.id;
       self.client.email = event.item.client.email;
       self.client.active = event.item.client.active;
-      
+
       if (self.client.active !== self.toggler.checked) {
         self.toggler.toggle();
       };
-      
+
       self.update();
-    }    
-    
+    }
+
     updateClient() {
       console.log(self.client);
       self.client.email = self.emailEditInput.value || self.client.email;
       RiotControl.trigger('clientStore_updateClient', self.client);
-    }    
-    
+    }
+
     RiotControl.on('clientStore_getClients_done', function(clients) {
       self.update({clients: clients});
     });
-    
+
   </script>
 </my-clients>

@@ -38,7 +38,27 @@ class ClientStore
       console.log req.status
       self.trigger 'clientStore_createClient_error', req.status
     )
-   
+
+  sendMsg: (data) ->
+    self = @
+    dataId = data.id
+    url = ajaxAPIURL + 'client/' + dataId + '/msg'
+    console.log url
+    $.ajax({
+      url: url
+      method: 'put'
+      data: data
+    })
+    .done((data, status) ->
+      console.log 'AJAX method successful: updateClient'
+      self.trigger 'clientStore_sendMsg_done', data
+    )
+    .fail((req, error) ->
+      console.log 'AJAX method failed'
+      console.log req.status
+      self.trigger 'clientStore_updateClient_error', req.status
+    )
+
   updateClient: (data) ->
     self = @
     dataId = data.id
@@ -63,6 +83,9 @@ clientStore = new ClientStore
 
 clientStore.on 'clientStore_createClient', (client) ->
   this.createClient client
+
+clientStore.on 'clientStore_sendMsg', (text) ->
+  this.sendMsg text
 
 clientStore.on 'clientStore_getClients', () ->
   this.getClients()

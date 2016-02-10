@@ -13,6 +13,7 @@
         self.router.go('login');
       } else {
         self.router.go('dashboard');
+        RiotControl.trigger('clientStore_getClients');
       }
     });
 

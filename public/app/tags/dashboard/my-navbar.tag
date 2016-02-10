@@ -20,6 +20,8 @@
         </li>
       </ul>
       <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+        <li><a href="#" role="menuitem"><i class="icon wb-chat" aria-hidden="true">
+        </i></a></li>
         <li><a href="#" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i></a></li>
       </ul>
     </div>

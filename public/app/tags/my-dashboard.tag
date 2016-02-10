@@ -5,6 +5,7 @@
   <my-clients if={toDisplay == 'clients'}></my-clients>
   <my-policies if={toDisplay == 'policies'}></my-policies>
   <my-car-policies if={toDisplay == 'car-policies'}></my-car-policies>
+  <my-messages if={toDisplay == 'messages'}></my-messages>
 
   <script>
     this.mixin('rg.router');
@@ -23,6 +24,8 @@
       } else if (curr.name === 'car-policies') {
         self.update({toDisplay: 'car-policies'});
         RiotControl.trigger('policyStore_getCarPolicies');
+      } else if (curr.name === 'messages') {
+        self.update({toDisplay: 'messages'});
       }
     });
 

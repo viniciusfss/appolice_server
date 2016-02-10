@@ -49,6 +49,10 @@ userSchema = new Schema {
   broker: type: Schema.Types.ObjectId, ref: 'User' # Broker
   policies: [ policySchema ]
   tempToken: String # For Client Authentication
+  messages: [ # The type is the person who sent the message.
+    from: String
+    text: String
+  ]
 }
 
 userSchema.methods.hashPassword = (pass, cb) ->
