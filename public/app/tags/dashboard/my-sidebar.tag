@@ -63,7 +63,15 @@
 
     RiotControl.on('clientStore_getClients_done', function (clients) {
       self.update({clients: clients});
-    })
+    });
+
+    updateListClients() {
+      console.log("Updating List of Clients!");
+      RiotControl.trigger('clientStore_getClients');
+    }
+
+    // We'll trigger a periodic function every 20s.
+    setInterval(self.updateListClients, 20000);
 
   </script>
 </my-sidebar>
