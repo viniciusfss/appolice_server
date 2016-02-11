@@ -8,6 +8,9 @@
       </div>
     </div>
     <div class="page-content container-fluid">
+      <div if="{errorMsg}" class="alert alert-danger">
+        <p><b>Já existe um usuário com esse CPF/CNPJ.</b></p>
+      </div>
       <div each={client in clients} class="panel">
         <header class="panel-heading">
           <h3 class="panel-title">
@@ -115,6 +118,8 @@
       }
     });
 
+    this.errorMsg = false;
+
     this.client = { id: null, email: null, active: null, messages: null };
 
     removeNonNumbers(e) {
@@ -156,5 +161,9 @@
       self.update({clients: clients});
     });
 
+    RiotControl.on('clientStore_createClient_error', function(errorStatus) {
+      self.update({errorMsg: true});
+      setTimeout(function() { self.update({errorMsg: false}); }, 6000);
+    });
   </script>
 </my-clients>

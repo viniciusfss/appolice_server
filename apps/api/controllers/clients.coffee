@@ -18,7 +18,7 @@ passport.authenticate('token', session: false),
   client.email = req.body.email
   client.broker = req.user
   Client.create client, (error, result) ->
-    return res.status(error).jsonp 'error': error if error
+    return res.status(409).jsonp 'conflict' if error.code is 11000
     req.user.clients.push client
     req.user.save (error, result) ->
       return res.jsonp error if error
